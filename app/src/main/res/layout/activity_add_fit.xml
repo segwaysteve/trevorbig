@@ -7,7 +7,7 @@
     tools:context=".AddFit">
 
     <AutoCompleteTextView
-        android:id="@+id/Emotion"
+        android:id="@+id/Workout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
         android:hint="Date"
         android:inputType="date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Emotion" />
+        app:layout_constraintTop_toBottomOf="@+id/Workout" />
 
     <EditText
         android:id="@+id/Time"
