@@ -3,7 +3,6 @@ package com.example.trevorbig;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class AddFit extends AppCompatActivity {
+public class AddWorkout extends AppCompatActivity {
     AutoCompleteTextView Workout;
     EditText Date;
     EditText Time;
@@ -31,7 +30,7 @@ public class AddFit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_fit);
+        setContentView(R.layout.activity_add_workout);
 
         //make array list of Workouts in database
         mydb = new DBHelper(this);
@@ -59,7 +58,7 @@ public class AddFit extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddFit.this, MainActivity.class));
+                startActivity(new Intent(AddWorkout.this, MainActivity.class));
             }
         });
 
@@ -73,17 +72,17 @@ public class AddFit extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Workout = Workout.getText().toString();
+                String workout = Workout.getText().toString();
                 String date = Date.getText().toString();
                 String time = Time.getText().toString();
                 String duration = Duration.getText().toString();
                 String notes = Notes.getText().toString();
                 if(Workout.length() != 0 || Date.length() != 0 || Time.length() != 0 ) {
-                    addData(Workout, date, time, duration, notes);
-                    startActivity(new Intent(AddFit.this, MainActivity.class));
+                    addData(workout, date, time, duration, notes);
+                    startActivity(new Intent(AddWorkout.this, MainActivity.class));
                 }
                 else {
-                    Toast.makeText(AddFit.this, "you must put something", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddWorkout.this, "you must put something", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -93,10 +92,10 @@ public class AddFit extends AppCompatActivity {
     public void addData(String Workout, String date, String time, String duration, String notes) {
         boolean insertData = mydb.addWorkout(Workout, date, time, duration, notes);
         if(insertData == true) {
-            Toast.makeText(AddFit.this, "entered data", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddWorkout.this, "entered data", Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(AddFit.this, "something went wrong", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddWorkout.this, "something went wrong", Toast.LENGTH_LONG).show();
         }
     }
 

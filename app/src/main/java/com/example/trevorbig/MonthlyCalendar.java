@@ -56,7 +56,7 @@ public class MonthlyCalendar extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MonthlyCalendar.this, AddFit.class));
+                startActivity(new Intent(MonthlyCalendar.this, AddWorkout.class));
             }
         });
     }

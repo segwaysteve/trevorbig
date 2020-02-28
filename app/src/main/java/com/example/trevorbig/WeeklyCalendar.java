@@ -78,7 +78,7 @@ public class WeeklyCalendar extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WeeklyCalendar.this, AddFit.class));
+                startActivity(new Intent(WeeklyCalendar.this, AddWorkout.class));
             }
         });
     }

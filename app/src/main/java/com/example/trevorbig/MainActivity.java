@@ -12,22 +12,66 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    DBHelper mydb;
+    ListView DailyListView;
+    String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mydb = new DBHelper(this);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+
+
+        Intent incomingIntent = getIntent();
+        if(incomingIntent.getStringExtra("date") == null) {
+            date = dateFormat.format(Calendar.getInstance().getTime());
+        }
+        else {
+            date = incomingIntent.getStringExtra("date");
+        }
+
+
+        DailyListView = (ListView) findViewById(R.id.DailyListView);
+        final ArrayList array_list = mydb.getDayWorkouts(date);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array_list);
+        DailyListView.setAdapter(arrayAdapter);
+
+
+        DailyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO Auto-generated method stub
+                int id_To_Search = position + 1;
+
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt("id", id_To_Search);
+                dataBundle.putString("date", date);
+
+                Intent intent = new Intent(getApplicationContext(), EditWorkout.class);
+
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddFit.class));
+                startActivity(new Intent(MainActivity.this, AddWorkout.class));
             }
         });
     }

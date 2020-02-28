@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MonthlyCalendar"></activity>
+        <activity android:name=".EditWorkout"></activity>
+        <activity android:name=".Timer" />
+        <activity android:name=".MonthlyCalendar" />
         <activity android:name=".WeeklyCalendar" />
         <activity android:name=".AddFit" />
         <activity

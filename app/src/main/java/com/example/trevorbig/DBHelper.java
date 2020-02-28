@@ -16,8 +16,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String col_2 = "workout";
     public static final String col_3 = "date";
     public static final String col_4 = "time";
-    public static final String col_5 = "notes";
-    public static final String col_6 = "duration";
+    public static final String col_5 = "duration";
+    public static final String col_6 = "notes";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, 2);
@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + "workout TEXT,"
-                + "date TEXT," + "time TEXT," + "notes TEXT)";
+                + "date TEXT," + "time TEXT," + "duration TEXT," + "notes TEXT)";
         db.execSQL(createTable);
     }
 
@@ -44,8 +44,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(col_2, workout);
         contentValues.put(col_3, date);
         contentValues.put(col_4, time);
-        contentValues.put(col_5, notes);
-        contentValues.put(col_6, duration);
+        contentValues.put(col_5, duration);
+        contentValues.put(col_6, notes);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1) {
             return false;
@@ -57,13 +57,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-    public void updateWorkout (Integer id, String workout, String date, String time, String notes) {
+    public void updateWorkout (Integer id, String workout, String date, String time, String duration, String notes) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(col_2, workout);
         contentValues.put(col_3, date);
         contentValues.put(col_4, time);
-        contentValues.put(col_5, notes);
+        contentValues.put(col_5, duration);
+        contentValues.put(col_6, notes);
         db.update("Workout", contentValues, col_1 + " = " + id, null);
     }
 
@@ -96,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public String getModeWorkout() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.query(TABLE_NAME, new String[] {col_1, col_2, col_3, col_4, col_5}, null,
+        Cursor res = db.query(TABLE_NAME, new String[] {col_1, col_2, col_3, col_4, col_5, col_6}, null,
                 null, col_2, "COUNT (*) = ( SELECT MAX(Cnt) FROM( SELECT COUNT(*) as Cnt FROM " + TABLE_NAME + " GROUP BY " + col_2 + " ) tmp )",
                 null, null);
         String mode = null;
@@ -110,7 +111,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<String> getAllDistinctWorkouts() {
         ArrayList<String> array_list = new ArrayList<String>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor res = db.query(true, TABLE_NAME, new String[] {col_1, col_2, col_3, col_4, col_5},
+        Cursor res = db.query(true, TABLE_NAME, new String[] {col_1, col_2, col_3, col_4, col_5, col_6},
                 null, null, col_2, null, null, null);
         res.moveToFirst();
 

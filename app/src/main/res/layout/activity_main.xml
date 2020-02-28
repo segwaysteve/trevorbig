@@ -21,7 +21,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ListView
-        android:id="@+id/DistinctWorkoutList"
+        android:id="@+id/DailyListView"
         android:layout_width="379dp"
         android:layout_height="699dp"
         android:layout_marginStart="16dp"
